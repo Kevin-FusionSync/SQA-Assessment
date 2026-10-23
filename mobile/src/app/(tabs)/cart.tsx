@@ -53,7 +53,7 @@ export default function CartScreen() {
     return (
       <View style={[ui.screen, { justifyContent: 'center' }]}>
         <EmptyState emoji="🧺" title="Your cart is empty" message="Fresh fruit, bakery treats and more are just a tap away.">
-          <Pressable style={[ui.btn, { paddingHorizontal: 28 }]} onPress={() => router.navigate('/')}>
+          <Pressable style={[ui.btn, { paddingHorizontal: 28 }]} onPress={() => router.navigate('/')} accessibilityRole="button" accessibilityLabel="Start shopping">
             <Ionicons name="storefront-outline" size={18} color="#fff" />
             <Text style={ui.btnText}>Start shopping</Text>
           </Pressable>
@@ -149,7 +149,7 @@ export default function CartScreen() {
                 <Text style={{ flex: 1, color: colors.greenDarker }}>
                   <Text style={{ fontWeight: '800' }}>{cart.coupon.code}</Text> · {cart.coupon.description}
                 </Text>
-                <Pressable onPress={async () => setCart(await api.removeCoupon())} hitSlop={8}>
+                <Pressable onPress={async () => setCart(await api.removeCoupon())} hitSlop={8} accessibilityRole="button" accessibilityLabel="Remove coupon">
                   <Text style={{ color: colors.red, fontWeight: '700' }}>Remove</Text>
                 </Pressable>
               </View>
@@ -162,13 +162,14 @@ export default function CartScreen() {
                     value={code}
                     onChangeText={setCode}
                     placeholder="e.g. SAVE10"
+                    accessibilityLabel="Coupon code"
                     placeholderTextColor={colors.muted}
                     autoCapitalize="characters"
                     autoCorrect={false}
                     returnKeyType="done"
                     onSubmitEditing={applyCoupon}
                   />
-                  <Pressable style={[ui.btn, ui.btnGhost, { paddingHorizontal: 18 }]} onPress={applyCoupon}>
+                  <Pressable style={[ui.btn, ui.btnGhost, { paddingHorizontal: 18 }]} onPress={applyCoupon} accessibilityRole="button">
                     <Text style={[ui.btnText, ui.btnGhostText]}>Apply</Text>
                   </Pressable>
                 </View>
@@ -197,7 +198,7 @@ export default function CartScreen() {
           <Text style={[ui.muted, { fontSize: 12 }]}>Total</Text>
           <Text style={styles.footerTotal}>{money(cart.summary.total)}</Text>
         </View>
-        <Pressable style={[ui.btn, { flex: 1 }]} onPress={() => router.push('/checkout')}>
+        <Pressable style={[ui.btn, { flex: 1 }]} onPress={() => router.push('/checkout')} accessibilityRole="button" accessibilityLabel="Checkout">
           <Text style={ui.btnText}>Checkout</Text>
           <Ionicons name="arrow-forward" size={18} color="#fff" />
         </Pressable>

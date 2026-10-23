@@ -118,6 +118,9 @@ export default function ProductScreen() {
           style={[ui.btn, { flex: 1 }, (!product.inStock || adding) && ui.btnDisabled]}
           onPress={add}
           disabled={!product.inStock || adding}
+          accessibilityRole="button"
+          accessibilityLabel={product.inStock ? 'Add to cart' : 'Out of stock'}
+          accessibilityState={{ disabled: !product.inStock || adding }}
         >
           {adding ? (
             <ActivityIndicator color="#fff" />

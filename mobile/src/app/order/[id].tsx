@@ -130,7 +130,7 @@ export default function OrderDetailScreen() {
       </View>
 
       {order.canCancel && (
-        <Pressable style={[ui.btn, ui.btnGhost, { borderColor: colors.red }, cancelling && ui.btnDisabled]} onPress={cancel} disabled={cancelling}>
+        <Pressable style={[ui.btn, ui.btnGhost, { borderColor: colors.red }, cancelling && ui.btnDisabled]} onPress={cancel} disabled={cancelling} accessibilityRole="button" accessibilityLabel="Cancel order">
           <Ionicons name="close-circle-outline" size={18} color={colors.red} />
           <Text style={[ui.btnText, { color: colors.red }]}>{cancelling ? 'Cancelling…' : 'Cancel order'}</Text>
         </Pressable>

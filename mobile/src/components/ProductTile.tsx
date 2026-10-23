@@ -40,6 +40,7 @@ export default function ProductTile({ product }: { product: Product }) {
   };
 
   return (
+    <View style={styles.wrap}>
     <Pressable
       style={({ pressed }) => [styles.tile, pressed && { opacity: 0.9, transform: [{ scale: 0.99 }] }]}
       onPress={() => router.push(`/product/${product.id}`)}
@@ -74,8 +75,12 @@ export default function ProductTile({ product }: { product: Product }) {
             <Text style={styles.price}>{money(product.price)}</Text>
             {product.originalPrice ? <Text style={styles.old}>{money(product.originalPrice)}</Text> : null}
           </View>
+          <View style={styles.addSpace} />
+        </View>
+      </View>
+    </Pressable>
           <Pressable
-            style={[styles.addBtn, added && { backgroundColor: colors.greenDark }, !product.inStock && styles.addBtnDisabled]}
+            style={[styles.addBtn, styles.addBtnPos, added && { backgroundColor: colors.greenDark }, !product.inStock && styles.addBtnDisabled]}
             onPress={quickAdd}
             disabled={!product.inStock || adding}
             hitSlop={6}
@@ -89,13 +94,12 @@ export default function ProductTile({ product }: { product: Product }) {
               <Ionicons name={added ? 'checkmark' : 'add'} size={22} color="#fff" />
             )}
           </Pressable>
-        </View>
-      </View>
-    </Pressable>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  wrap: { flex: 1 },
   tile: {
     flex: 1,
     backgroundColor: colors.card,
@@ -129,5 +133,7 @@ const styles = StyleSheet.create({
   price: { fontWeight: '800', fontSize: 16, color: colors.ink },
   old: { color: colors.muted, fontSize: 12, textDecorationLine: 'line-through' },
   addBtn: { width: 36, height: 36, borderRadius: 12, backgroundColor: colors.green, alignItems: 'center', justifyContent: 'center' },
+  addBtnPos: { position: 'absolute', right: 12, bottom: 12 },
+  addSpace: { width: 36, height: 36 },
   addBtnDisabled: { backgroundColor: colors.lineStrong },
 });

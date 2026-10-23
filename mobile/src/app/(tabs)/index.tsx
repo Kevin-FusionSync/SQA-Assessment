@@ -2,7 +2,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { router, useFocusEffect } from 'expo-router';
 import { setStatusBarStyle } from 'expo-status-bar';
 import { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Pressable, RefreshControl, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { ActivityIndicator, FlatList, Pressable, RefreshControl, ScrollView, StyleSheet, Text, TextInput, useWindowDimensions, View } from 'react-native';
 import EmptyState from '../../components/EmptyState';
 import ErrorBanner from '../../components/ErrorBanner';
 import ProductTile from '../../components/ProductTile';
@@ -26,6 +26,8 @@ const greeting = () => {
 };
 
 export default function ShopScreen() {
+  const { width } = useWindowDimensions();
+  const tileWidth = (width - 16 * 2 - 12) / 2;
   const { user } = useAuth();
   const { count } = useCart();
   const [categories, setCategories] = useState<Category[]>([]);
@@ -205,7 +207,11 @@ export default function ShopScreen() {
         ListHeaderComponent={header}
         columnWrapperStyle={{ gap: 12, paddingHorizontal: 16 }}
         contentContainerStyle={{ gap: 12, paddingBottom: 28 }}
-        renderItem={({ item }) => <ProductTile product={item} />}
+        renderItem={({ item }) => (
+          <View style={{ flex: 1, maxWidth: tileWidth }}>
+            <ProductTile product={item} />
+          </View>
+        )}
         keyboardShouldPersistTaps="handled"
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.green} colors={[colors.green]} />}
         ListEmptyComponent={
@@ -217,7 +223,7 @@ export default function ShopScreen() {
         }
         ListFooterComponent={
           page < totalPages && products.length > 0 ? (
-            <Pressable style={[ui.btn, ui.btnGhost, { marginHorizontal: 16, marginTop: 4 }]} onPress={loadMore} disabled={loadingMore}>
+            <Pressable style={[ui.btn, ui.btnGhost, { marginHorizontal: 16, marginTop: 4 }]} onPress={loadMore} disabled={loadingMore} accessibilityRole="button" accessibilityLabel="Load more products">
               {loadingMore ? (
                 <ActivityIndicator color={colors.green} />
               ) : (

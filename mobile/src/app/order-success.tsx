@@ -36,7 +36,7 @@ export default function OrderSuccessScreen() {
       </View>
 
       <View style={{ width: '100%', gap: 10, marginTop: 24 }}>
-        <Pressable style={ui.btn} onPress={() => router.push(`/order/${id}`)}>
+        <Pressable style={ui.btn} onPress={() => router.push(`/order/${id}`)} accessibilityRole="button" accessibilityLabel="Track order">
           <Ionicons name="navigate-outline" size={18} color="#fff" />
           <Text style={ui.btnText}>Track order</Text>
         </Pressable>

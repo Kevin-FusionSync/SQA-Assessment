@@ -11,7 +11,7 @@ import { colors, ui } from '../../lib/theme';
 
 function MenuRow({ icon, label, onPress }: { icon: ComponentProps<typeof Ionicons>['name']; label: string; onPress: () => void }) {
   return (
-    <Pressable style={({ pressed }) => [styles.menuRow, pressed && { backgroundColor: colors.bg }]} onPress={onPress} accessibilityRole="button">
+    <Pressable style={({ pressed }) => [styles.menuRow, pressed && { backgroundColor: colors.bg }]} onPress={onPress} accessibilityRole="button" accessibilityLabel={label}>
       <View style={styles.menuIcon}>
         <Ionicons name={icon} size={18} color={colors.green} />
       </View>
@@ -71,7 +71,7 @@ export default function ProfileScreen() {
         <View style={ui.card}>
           <Text style={ui.h2}>Personal details</Text>
           <Text style={ui.label}>Full name</Text>
-          <TextInput style={[ui.input, errors.name && ui.inputError]} value={name} onChangeText={setName} autoComplete="name" />
+          <TextInput style={[ui.input, errors.name && ui.inputError]} value={name} onChangeText={setName} autoComplete="name" accessibilityLabel="Full name" />
           {!!errors.name && <Text style={ui.fieldError}>{errors.name}</Text>}
 
           <Text style={[ui.label, { marginTop: 14 }]}>Phone (optional)</Text>
@@ -80,12 +80,13 @@ export default function ProfileScreen() {
             value={phone}
             onChangeText={setPhone}
             keyboardType="phone-pad"
+            accessibilityLabel="Phone"
             placeholder="10–15 digits"
             placeholderTextColor={colors.muted}
           />
           {!!errors.phone && <Text style={ui.fieldError}>{errors.phone}</Text>}
 
-          <Pressable style={[ui.btn, { marginTop: 18 }, saving && ui.btnDisabled]} onPress={save} disabled={saving}>
+          <Pressable style={[ui.btn, { marginTop: 18 }, saving && ui.btnDisabled]} onPress={save} disabled={saving} accessibilityRole="button">
             <Text style={ui.btnText}>{saving ? 'Saving…' : 'Save changes'}</Text>
           </Pressable>
         </View>
@@ -100,7 +101,7 @@ export default function ProfileScreen() {
           />
         </View>
 
-        <Pressable style={[ui.btn, ui.btnGhost]} onPress={confirmLogout}>
+        <Pressable style={[ui.btn, ui.btnGhost]} onPress={confirmLogout} accessibilityRole="button" accessibilityLabel="Log out">
           <Ionicons name="log-out-outline" size={18} color={colors.red} />
           <Text style={[ui.btnText, { color: colors.red }]}>Log out</Text>
         </Pressable>

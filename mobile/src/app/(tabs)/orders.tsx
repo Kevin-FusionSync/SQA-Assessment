@@ -38,7 +38,7 @@ export default function OrdersScreen() {
       contentContainerStyle={{ padding: 16, gap: 10 }}
       ListEmptyComponent={
         <EmptyState emoji="📦" title="No orders yet" message="When you place an order, it will show up here.">
-          <Pressable style={[ui.btn, { paddingHorizontal: 28 }]} onPress={() => router.navigate('/')}>
+          <Pressable style={[ui.btn, { paddingHorizontal: 28 }]} onPress={() => router.navigate('/')} accessibilityRole="button">
             <Text style={ui.btnText}>Start shopping</Text>
           </Pressable>
         </EmptyState>

@@ -63,6 +63,7 @@ export default function RegisterScreen() {
             value={name}
             onChangeText={setName}
             placeholder="Jane Doe"
+            accessibilityLabel="Full name"
             placeholderTextColor={colors.muted}
             autoComplete="name"
           />
@@ -76,6 +77,7 @@ export default function RegisterScreen() {
             value={email}
             onChangeText={setEmail}
             placeholder="you@example.com"
+            accessibilityLabel="Email"
             placeholderTextColor={colors.muted}
             keyboardType="email-address"
             autoCapitalize="none"
@@ -91,6 +93,7 @@ export default function RegisterScreen() {
             value={password}
             onChangeText={setPassword}
             placeholder="At least 8 characters, including a number"
+            accessibilityLabel="Password"
             placeholderTextColor={colors.muted}
             autoCapitalize="none"
             autoComplete="new-password"
@@ -98,7 +101,7 @@ export default function RegisterScreen() {
         </FieldBox>
         {!!errors.password && <Text style={ui.fieldError}>{errors.password}</Text>}
 
-        <Pressable style={[ui.btn, { marginTop: 26 }, submitting && ui.btnDisabled]} onPress={submit} disabled={submitting}>
+        <Pressable style={[ui.btn, { marginTop: 26 }, submitting && ui.btnDisabled]} onPress={submit} disabled={submitting} accessibilityRole="button">
           {submitting ? <ActivityIndicator color="#fff" /> : <Text style={ui.btnText}>Create account</Text>}
         </Pressable>
         <Text style={[ui.muted, { textAlign: 'center', fontSize: 12, marginTop: 14 }]}>

@@ -1,7 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { Link } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
+import { router, useFocusEffect } from 'expo-router';
+import { setStatusBarStyle } from 'expo-status-bar';
+import { useCallback, useState } from 'react';
 import { ActivityIndicator, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ErrorBanner from '../components/ErrorBanner';
@@ -14,6 +14,13 @@ export default function LoginScreen() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      setStatusBarStyle('light');
+      return () => setStatusBarStyle('dark');
+    }, []),
+  );
 
   const submit = async () => {
     setError('');
@@ -32,7 +39,6 @@ export default function LoginScreen() {
 
   return (
     <View style={[ui.screen, { backgroundColor: colors.greenDarker }]}>
-      <StatusBar style="light" />
       <SafeAreaView style={{ flex: 1 }} edges={['top']}>
         <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
           <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled" bounces={false}>
@@ -87,7 +93,7 @@ export default function LoginScreen() {
                 />
               </View>
 
-              <Pressable style={[ui.btn, { marginTop: 24 }, submitting && ui.btnDisabled]} onPress={submit} disabled={submitting}>
+              <Pressable style={[ui.btn, { marginTop: 24 }, submitting && ui.btnDisabled]} onPress={submit} disabled={submitting} accessibilityRole="button">
                 {submitting ? <ActivityIndicator color="#fff" /> : <Text style={ui.btnText}>Sign in</Text>}
               </Pressable>
 
@@ -97,11 +103,9 @@ export default function LoginScreen() {
                 <View style={styles.dividerLine} />
               </View>
 
-              <Link href="/register" asChild>
-                <Pressable style={[ui.btn, ui.btnGhost]}>
-                  <Text style={[ui.btnText, ui.btnGhostText]}>Create an account</Text>
-                </Pressable>
-              </Link>
+              <Pressable style={[ui.btn, ui.btnGhost]} onPress={() => router.push('/register')} accessibilityRole="button">
+                <Text style={[ui.btnText, ui.btnGhostText]}>Create an account</Text>
+              </Pressable>
             </View>
           </ScrollView>
         </KeyboardAvoidingView>

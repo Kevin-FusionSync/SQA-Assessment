@@ -82,6 +82,7 @@ export default function CheckoutScreen() {
         value={form[key]}
         onChangeText={(v) => setForm((f) => ({ ...f, [key]: v }))}
         placeholderTextColor={colors.muted}
+        accessibilityLabel={label}
         {...props}
       />
       {!!errors[key] && <Text style={ui.fieldError}>{errors[key]}</Text>}
@@ -151,7 +152,7 @@ export default function CheckoutScreen() {
       </ScrollView>
 
       <View style={[styles.footer, shadow]}>
-        <Pressable style={[ui.btn, submitting && ui.btnDisabled]} onPress={submit} disabled={submitting}>
+        <Pressable style={[ui.btn, submitting && ui.btnDisabled]} onPress={submit} disabled={submitting} accessibilityRole="button">
           {submitting ? (
             <>
               <ActivityIndicator color="#fff" />
